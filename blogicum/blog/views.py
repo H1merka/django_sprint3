@@ -1,5 +1,5 @@
 from blog.models import Post, Category
-from django.shortcuts import render, get_list_or_404, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from datetime import datetime
 
 
@@ -63,16 +63,14 @@ def category_posts(request, category_slug):
             is_published=True
         )
     )
-    post_list = get_list_or_404(
-        Post.objects.select_related(
-            'category',
-            'author',
-            'location'
-        ).filter(
-            category__slug=category_slug,
-            is_published=True,
-            pub_date__lte=datetime.now()
-        )
+    post_list = Post.objects.select_related(
+        'category',
+        'author',
+        'location'
+    ).filter(
+        category__slug=category_slug,
+        is_published=True,
+        pub_date__lte=datetime.now()
     )
     context = {
         'post_list': post_list,
