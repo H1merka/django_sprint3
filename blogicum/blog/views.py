@@ -76,6 +76,6 @@ def category_posts(request, category_slug):
     )
     context = {
         'post_list': post_list,
-        'category': category  
+        'category': category
     }
     return render(request, template_name, context)
